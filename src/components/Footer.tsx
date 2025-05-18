@@ -3,7 +3,7 @@ import { Mail, MapPin, Phone, Linkedin, Facebook, Instagram } from 'lucide-react
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0a2540] text-white py-12 px-6">
+    <footer className="bg-[#0a0f1a] text-white py-12 px-6">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Columna 1: Empresa */}
         <div>

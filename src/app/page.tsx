@@ -7,10 +7,10 @@ import ServiceCards from '@/components/ServiceCards'
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="bg-[#0a0f1a] text-white">
       <HeroSlider />
       <SectionHighlight />
-      <section className="max-w-4xl mx-auto px-4 py-16 text-center text-blue-900">
+      <section className="max-w-4xl mx-auto px-4 py-16 text-center">
         <h2 className="text-3xl font-bold">Über precure</h2>
         <p className="mt-4 text-lg">
           Wir sind ein deutsches Unternehmen spezialisiert auf industrielle Instandhaltung

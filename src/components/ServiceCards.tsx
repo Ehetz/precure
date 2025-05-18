@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const services = [
@@ -9,24 +10,27 @@ const services = [
     title: 'Digitalisierung',
     text: 'Echtzeitdaten, Automatisierung & smarte Industrieprozesse.',
     image: '/images/digitalisierung.jpg',
+    link: '/leistungen/digitalisierung',
   },
   {
     label: 'SERVICE',
     title: 'Schwingungsanalyse',
     text: 'Zustandsüberwachung durch präzise Sensordatenanalyse.',
     image: '/images/analyse.jpg',
+    link: '/leistungen/schwingungsanalyse',
   },
   {
     label: 'VORTEILE',
     title: 'Prädiktive Instandhaltung',
     text: 'Vermeidung von Stillstand durch vorausschauende Wartung.',
     image: '/images/instandhaltung.jpg',
+    link: '/leistungen/praediktive-instandhaltung',
   },
 ]
 
 export default function ServiceCards() {
   return (
-    <section className="bg-[#082a4e] py-20 px-4 text-white">
+    <section className="bg-[#0a0f1a] py-20 px-4 text-white">
       <div className="max-w-7xl mx-auto text-center mb-16">
         <h2 className="text-4xl font-bold tracking-wide drop-shadow">Entdecken Sie unsere Leistungen</h2>
       </div>
@@ -52,16 +56,16 @@ export default function ServiceCards() {
             </div>
 
             {/* Contenido */}
-            <div className="relative z-10 p-8 h-[300px] flex flex-col justify-between text-white">
+            <div className="relative z-10 p-8 h-[320px] flex flex-col justify-between text-white">
               <div className="text-sm text-blue-200 uppercase tracking-wide">{item.label}</div>
               <div>
-                <h3 className="text-2xl font-bold mt-2 mb-2">{item.title}</h3>
+                <h3 className="text-2xl font-bold mt-2 mb-2 break-words whitespace-normal">{item.title}</h3>
                 <p className="text-sm text-blue-100">{item.text}</p>
               </div>
               <div className="mt-6">
-                <a href="#" className="underline text-white hover:text-blue-300 text-sm">
+                <Link href={item.link} className="underline text-white hover:text-blue-300 text-sm">
                   Mehr erfahren
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>

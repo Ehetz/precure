@@ -28,7 +28,7 @@ const features = [
 
 export default function MonitoringFeatures() {
   return (
-    <section className="bg-gray-950 text-white py-20 px-4">
+    <section className="bg-[#0a0f1a] text-white py-20 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
         {/* Texto izquierda */}
         <div className="flex flex-col justify-center">
@@ -46,7 +46,7 @@ export default function MonitoringFeatures() {
             return (
               <motion.li
                   key={index}
-                  className="bg-gray-900 p-6 rounded-lg shadow-lg cursor-pointer list-none"
+                  className="bg-[#161c26] p-6 rounded-lg shadow-lg cursor-pointer list-none"
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   whileHover={{ scale: 1.05, boxShadow: '0 10px 25px rgba(0,0,0,0.3)' }}
