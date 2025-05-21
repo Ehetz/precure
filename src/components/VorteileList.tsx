@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { TrendingDown, CheckCircle, Star, Eye, Users } from 'lucide-react'
 
@@ -38,15 +37,11 @@ export default function VorteileList() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative">
         {/* Cards a la izquierda */}
         <div className="relative z-10 grid grid-cols-1 gap-8">
-          {items.map((item, i) => {
+          {items.map((item) => {
             const Icon = item.icon
             return (
-              <motion.div
+              <div
                 key={item.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
-                viewport={{ once: true }}
                 className="bg-[#161c26] rounded-xl shadow-xl px-7 py-7 flex gap-5 items-start border border-white/5 hover:border-blue-700 transition"
               >
                 <div className="mt-1">
@@ -56,7 +51,7 @@ export default function VorteileList() {
                   <h3 className="text-lg md:text-xl font-bold mb-1 text-blue-200">{item.title}</h3>
                   <p className="text-blue-100 text-sm">{item.text}</p>
                 </div>
-              </motion.div>
+              </div>
             )
           })}
         </div>
@@ -65,7 +60,7 @@ export default function VorteileList() {
         <div className="relative flex flex-col h-full">
           <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden hidden md:block">
             <Image
-              src="/images/digitalisierung2.jpg" // Cambia el path según tu imagen
+              src="/images/digitalisierung2.jpg"
               alt="Vorteile Hero"
               fill
               className="object-cover opacity-60"

@@ -69,10 +69,11 @@ Desktop.ini
 .tailwindcss/
 
 # Optional: ignore local images or design files (if not versioning them)
-# /public/images/
+ /public/images/
 # *.psd
 # *.ai
 # *.sketch
 
 # Optional: ignore test snapshots
 __snapshots__/
+.env.local

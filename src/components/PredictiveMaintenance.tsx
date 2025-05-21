@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import { Radio, Cpu, BrainCircuit, BellRing, Award } from 'lucide-react'
 
 const steps = [
@@ -35,27 +34,17 @@ export default function PredictiveMaintenance() {
       </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-bold text-blue-100 mb-12 text-center"
-        >
+        <h2 className="text-3xl md:text-4xl font-bold text-blue-100 mb-12 text-center">
           Predictive Maintenance als Schlüsseltechnologie
-        </motion.h2>
+        </h2>
 
-        {/* Tarjetas animadas */}
+        {/* Tarjetas */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 md:gap-4">
-          {steps.map((step, i) => {
+          {steps.map((step) => {
             const Icon = step.icon
             return (
-              <motion.div
+              <div
                 key={step.title}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.14 }}
-                viewport={{ once: true }}
                 className="
                   bg-[#161c26] border border-blue-900/30 rounded-2xl shadow-lg px-7 py-8
                   flex flex-col items-center text-center w-full md:max-w-xs
@@ -67,17 +56,13 @@ export default function PredictiveMaintenance() {
                 </div>
                 <h3 className="text-lg font-bold text-blue-200 mb-2">{step.title}</h3>
                 <p className="text-blue-100 text-sm">{step.text}</p>
-              </motion.div>
+              </div>
             )
           })}
         </div>
 
         {/* Resultado final destacado */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.7 }}
-          viewport={{ once: true }}
+        <div
           className="
             mx-auto mt-14 max-w-2xl rounded-2xl border border-blue-700 bg-gradient-to-br
             from-[#123661]/80 via-[#0a2540]/90 to-[#161c26]/90 shadow-2xl p-8 text-center
@@ -91,7 +76,7 @@ export default function PredictiveMaintenance() {
           <span className="text-blue-100 text-lg">
             bessere Planbarkeit, weniger Notfalleinsätze und ein längeres Maschinenleben.
           </span>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

@@ -1,6 +1,5 @@
 'use client'
 
-import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { Activity, FileText, ShieldCheck, Layers, Users } from 'lucide-react'
 
@@ -40,7 +39,7 @@ export default function ZukunftsSichereDigitalisierungSection() {
         <div className="relative flex flex-col h-full">
           <div className="absolute inset-0 z-0 rounded-2xl overflow-hidden hidden md:block">
             <Image
-              src="/images/digitalisierung2.jpg" // Pon aquí tu ruta real
+              src="/images/digitalisierung2.jpg"
               alt="Digitalisierung"
               fill
               className="object-cover opacity-60"
@@ -58,15 +57,11 @@ export default function ZukunftsSichereDigitalisierungSection() {
 
         {/* Steps / Cards */}
         <div className="relative z-10 grid grid-cols-1 gap-8">
-          {steps.map((step, i) => {
+          {steps.map((step) => {
             const Icon = step.icon
             return (
-              <motion.div
+              <div
                 key={step.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
-                viewport={{ once: true }}
                 className="bg-[#161c26] rounded-xl shadow-xl px-7 py-7 flex gap-5 items-start border border-white/5 hover:border-blue-700 transition"
               >
                 <div className="mt-1">
@@ -76,7 +71,7 @@ export default function ZukunftsSichereDigitalisierungSection() {
                   <h3 className="text-lg md:text-xl font-bold mb-1 text-blue-200">{step.title}</h3>
                   <p className="text-blue-100 text-sm">{step.text}</p>
                 </div>
-              </motion.div>
+              </div>
             )
           })}
         </div>
