@@ -10,13 +10,17 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
     const res = await fetch('/api/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
     })
+
     if (res.ok) {
-      window.location.href = '/' // O redirige a una dashboard de empleados si tienes
+      const data = await res.json()
+      localStorage.setItem('username', data.user.username)
+      window.location.href = '/intern'
     } else {
       const data = await res.json()
       setError(data.message || 'Fehler beim Login')
@@ -30,6 +34,7 @@ export default function LoginPage() {
         className="bg-[#161c26] p-8 rounded-xl shadow-lg w-full max-w-md border border-blue-900/20"
       >
         <h2 className="text-2xl font-bold text-center mb-6 text-white">Login für Mitarbeiter</h2>
+
         <input
           className="w-full mb-4 px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
           type="text"
@@ -38,6 +43,7 @@ export default function LoginPage() {
           onChange={e => setUsername(e.target.value)}
           required
         />
+
         <input
           className="w-full mb-6 px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
           type="password"
@@ -46,7 +52,9 @@ export default function LoginPage() {
           onChange={e => setPassword(e.target.value)}
           required
         />
+
         {error && <div className="text-red-400 mb-4 text-center">{error}</div>}
+
         <button
           type="submit"
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded transition"

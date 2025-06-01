@@ -7,16 +7,11 @@ import ServiceCards from '@/components/ServiceCards'
 
 export default function HomePage() {
   return (
-    <main className="bg-[#0a0f1a] text-white">
+    <main className="bg-[#14254a] text-white">
       <HeroSlider />
+      <div className="mt-12" />
       <SectionHighlight />
       <section className="max-w-4xl mx-auto px-4 py-16 text-center">
-        <h2 className="text-3xl font-bold">Über precure</h2>
-        <p className="mt-4 text-lg">
-          Wir sind ein deutsches Unternehmen spezialisiert auf industrielle Instandhaltung
-          und präzise Schwingungssensorik. Unser Ziel ist es, moderne Technologien für die
-          Zustandsüberwachung zugänglich und zuverlässig zu machen.
-        </p>
       </section>
       <ServiceCards />
       <MonitoringFeatures />
