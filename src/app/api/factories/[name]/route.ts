@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ name: string }> }
+ context: { params: { name: string } }
 ) {
   try {
-    const { name } = await context.params
+    const { name } = context.params
     const decodedName = decodeURIComponent(name)
 
     const [factoryRows] = await db.query(
