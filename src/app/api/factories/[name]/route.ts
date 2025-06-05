@@ -1,19 +1,24 @@
 import { db } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
-export async function GET(req: NextRequest) {
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ name: string }> }
+) {
   try {
-    const name = decodeURIComponent(req.nextUrl.pathname.split('/').pop() || '')
+    const { name } = await context.params
+    const decodedName = decodeURIComponent(name)
 
-    const [factoryRows] = await db.query('SELECT * FROM factories WHERE name = ?', [name])
-    const factory = Array.isArray(factoryRows) && factoryRows.length > 0
-      ? factoryRows[0] as { id: number; name: string }
-      : null
+    const [factoryRows] = await db.query(
+      'SELECT * FROM factories WHERE name = ?',
+      [decodedName]
+    )
 
-    if (!factory) {
+    if (!Array.isArray(factoryRows) || factoryRows.length === 0) {
       return NextResponse.json({ error: 'Fabrik nicht gefunden' }, { status: 404 })
     }
 
+    const factory = factoryRows[0] as any
     const factoryId = factory.id
 
     const [addresses] = await db.query('SELECT * FROM addresses WHERE factory_id = ?', [factoryId])
@@ -26,7 +31,7 @@ export async function GET(req: NextRequest) {
       addresses,
       contacts,
       websites,
-      telefone,
+      telefone
     })
   } catch (error) {
     console.error('API Fehler:', error)
