@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
- context: { params: Promise<{ name: string }> }
+  context: { params: Promise<{ name: string }> }
 ) {
   try {
     const { name } = await context.params
@@ -33,6 +33,22 @@ export async function GET(
       websites,
       telefone
     })
+  } catch (error) {
+    console.error('API Fehler:', error)
+    return NextResponse.json({ error: (error as Error).message }, { status: 500 })
+  }
+}
+
+export async function PATCH(
+  req: NextRequest,
+  context: { params: Promise<{ name: string }> }
+) {
+  try {
+    const { name } = await context.params
+    const { status } = await req.json()
+    const decodedName = decodeURIComponent(name)
+    await db.query('UPDATE factories SET status = ? WHERE name = ?', [status, decodedName])
+    return NextResponse.json({ message: 'Status aktualisiert' })
   } catch (error) {
     console.error('API Fehler:', error)
     return NextResponse.json({ error: (error as Error).message }, { status: 500 })

@@ -56,6 +56,23 @@ export default function InternPage() {
     setSelectedFactory(data)
   }
 
+  const markAsContacted = async (name: string) => {
+    const res = await fetch(`/api/factories/${encodeURIComponent(name)}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: 'contacted' })
+    })
+    if (!res.ok) return
+    setFactories(prev =>
+      prev.map(f => (f.name === name ? { ...f, status: 'contacted' } : f))
+    )
+    setSelectedFactory(prev =>
+      prev && prev.factory.name === name
+        ? { ...prev, factory: { ...prev.factory, status: 'contacted' } }
+        : prev
+    )
+  }
+
   const filtered = factories.filter(f =>
     f.name.toLowerCase().includes(search.toLowerCase())
   )
@@ -98,6 +115,14 @@ export default function InternPage() {
               <p className={`text-sm ${selectedFactory.factory.status === 'contacted' ? 'text-green-400' : 'text-yellow-400'}`}>
                 {selectedFactory.factory.status === 'contacted' ? 'Kontakt aufgenommen' : 'Noch nicht kontaktiert'}
               </p>
+              {selectedFactory.factory.status !== 'contacted' && (
+                <button
+                  onClick={() => markAsContacted(selectedFactory.factory.name)}
+                  className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                >
+                  Als kontaktiert markieren
+                </button>
+              )}
               {selectedFactory.factory.comment && (
                 <p className="text-blue-100">{selectedFactory.factory.comment}</p>
               )}
