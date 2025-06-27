@@ -53,7 +53,7 @@ export default function InternPage() {
   }, [])
 
   const handleSelect = async (name: string) => {
-    const res = await fetch(`/api/factories/${encodeURIComponent(name)}`)
+    const res = await fetch(`/api/factories/name/${encodeURIComponent(name)}`)
     if (!res.ok) {
       setSelectedFactory(null)
       return
