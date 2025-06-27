@@ -150,6 +150,10 @@ export default function InternPage() {
                 </button>
               )}
 
+              <p className="text-blue-100 mt-2">
+                {selectedFactory.factory.comment || 'Kein Kommentar'}
+              </p>
+
               <div className="mt-2">
                 <textarea
                   className="w-full p-2 rounded bg-gray-800 border border-gray-600"
@@ -159,7 +163,7 @@ export default function InternPage() {
                 />
                 <button
                   onClick={() => saveComment(selectedFactory.factory.name)}
-                  className="mt-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                  className="mt-2 bg-[#3d7188] hover:bg-[#2e5f70] text-white px-4 py-2 rounded"
                 >
                   Kommentar speichern
                 </button>
