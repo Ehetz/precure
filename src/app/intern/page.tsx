@@ -39,6 +39,7 @@ export default function InternPage() {
   const [factories, setFactories] = useState<Factory[]>([])
   const [selectedFactory, setSelectedFactory] = useState<FactoryDetails | null>(null)
   const [search, setSearch] = useState('')
+  const [commentText, setCommentText] = useState('')
 
   useEffect(() => {
     fetch('/api/factories')
@@ -54,23 +55,41 @@ export default function InternPage() {
     }
     const data = (await res.json()) as FactoryDetails
     setSelectedFactory(data)
+    setCommentText(data.factory.comment ?? '')
   }
 
-  const markAsContacted = async (name: string) => {
+  const updateFactory = async (
+    name: string,
+    data: { status?: string; comment?: string }
+  ) => {
     const res = await fetch(`/api/factories/${encodeURIComponent(name)}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: 'contacted' })
+      body: JSON.stringify(data)
     })
-    if (!res.ok) return
+    if (!res.ok) return false
     setFactories(prev =>
-      prev.map(f => (f.name === name ? { ...f, status: 'contacted' } : f))
+      prev.map(f => (f.name === name ? { ...f, ...data } : f))
     )
     setSelectedFactory(prev =>
       prev && prev.factory.name === name
-        ? { ...prev, factory: { ...prev.factory, status: 'contacted' } }
+        ? { ...prev, factory: { ...prev.factory, ...data } }
         : prev
     )
+    return true
+  }
+
+  const markAsContacted = async (name: string) => {
+    updateFactory(name, { status: 'contacted' })
+  }
+
+  const markAsNotContacted = async (name: string) => {
+    updateFactory(name, { status: 'not_contacted' })
+  }
+
+  const saveComment = async (name: string) => {
+    const ok = await updateFactory(name, { comment: commentText })
+    if (!ok) return
   }
 
   const filtered = factories.filter(f =>
@@ -115,17 +134,36 @@ export default function InternPage() {
               <p className={`text-sm ${selectedFactory.factory.status === 'contacted' ? 'text-green-400' : 'text-yellow-400'}`}>
                 {selectedFactory.factory.status === 'contacted' ? 'Kontakt aufgenommen' : 'Noch nicht kontaktiert'}
               </p>
-              {selectedFactory.factory.status !== 'contacted' && (
+              {selectedFactory.factory.status !== 'contacted' ? (
                 <button
                   onClick={() => markAsContacted(selectedFactory.factory.name)}
                   className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
                 >
                   Als kontaktiert markieren
                 </button>
+              ) : (
+                <button
+                  onClick={() => markAsNotContacted(selectedFactory.factory.name)}
+                  className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                >
+                  Als nicht kontaktiert markieren
+                </button>
               )}
-              {selectedFactory.factory.comment && (
-                <p className="text-blue-100">{selectedFactory.factory.comment}</p>
-              )}
+
+              <div className="mt-2">
+                <textarea
+                  className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+                  rows={3}
+                  value={commentText}
+                  onChange={e => setCommentText(e.target.value)}
+                />
+                <button
+                  onClick={() => saveComment(selectedFactory.factory.name)}
+                  className="mt-2 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
+                >
+                  Kommentar speichern
+                </button>
+              </div>
 
               <div>
                 <h3 className="font-semibold">Adresse:</h3>

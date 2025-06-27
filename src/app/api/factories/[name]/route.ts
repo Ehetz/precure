@@ -45,10 +45,31 @@ export async function PATCH(
 ) {
   try {
     const { name } = await context.params
-    const { status } = await req.json()
+    const { status, comment } = await req.json()
     const decodedName = decodeURIComponent(name)
-    await db.query('UPDATE factories SET status = ? WHERE name = ?', [status, decodedName])
-    return NextResponse.json({ message: 'Status aktualisiert' })
+
+    const updates: string[] = []
+    const values: unknown[] = []
+    if (typeof status !== 'undefined') {
+      updates.push('status = ?')
+      values.push(status)
+    }
+    if (typeof comment !== 'undefined') {
+      updates.push('comment = ?')
+      values.push(comment)
+    }
+
+    if (updates.length === 0) {
+      return NextResponse.json({ message: 'Keine Änderungen' })
+    }
+
+    values.push(decodedName)
+    await db.query(
+      `UPDATE factories SET ${updates.join(', ')} WHERE name = ?`,
+      values
+    )
+
+    return NextResponse.json({ message: 'Fabrik aktualisiert' })
   } catch (error) {
     console.error('API Fehler:', error)
     return NextResponse.json({ error: (error as Error).message }, { status: 500 })
