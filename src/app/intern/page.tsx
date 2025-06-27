@@ -5,15 +5,34 @@ import { useEffect, useState } from 'react'
 interface Factory {
   id: number
   name: string
-  address: string
+  address?: string
   status: string
+  comment?: string
 }
 
-interface FactoryDetails extends Factory {
+interface Address {
+  street_name: string
+  street_no: number
+  postal_code: number
+}
+
+interface Contact {
+  employee_name: string
   email: string
-  phone: string
-  website: string
-  notes: string
+  phone_no: string
+  role: string
+}
+
+interface Website { url: string }
+
+interface Telefon { phone_no: string; comment?: string }
+
+interface FactoryDetails {
+  factory: Factory
+  addresses?: Address[]
+  contacts?: Contact[]
+  websites?: Website[]
+  telefone?: Telefon[]
 }
 
 export default function InternPage() {
@@ -29,7 +48,11 @@ export default function InternPage() {
 
   const handleSelect = async (name: string) => {
     const res = await fetch(`/api/factories/${encodeURIComponent(name)}`)
-    const data = await res.json()
+    if (!res.ok) {
+      setSelectedFactory(null)
+      return
+    }
+    const data = (await res.json()) as FactoryDetails
     setSelectedFactory(data)
   }
 
@@ -71,15 +94,66 @@ export default function InternPage() {
         <div>
           {selectedFactory ? (
             <div className="bg-[#161c26] p-6 rounded-lg shadow-lg space-y-3">
-              <h2 className="text-2xl font-semibold">{selectedFactory.name}</h2>
-              <p><strong>Adresse:</strong> {selectedFactory.address}</p>
-              <p><strong>Email:</strong> {selectedFactory.email}</p>
-              <p><strong>Telefon:</strong> {selectedFactory.phone}</p>
-              <p><strong>Website:</strong> {selectedFactory.website}</p>
-              {selectedFactory.notes && <p><strong>Notizen:</strong> {selectedFactory.notes}</p>}
-              <p className={`text-sm ${selectedFactory.status === 'contacted' ? 'text-green-400' : 'text-yellow-400'}`}>
-                Status: {selectedFactory.status}
+              <h2 className="text-2xl font-semibold">{selectedFactory.factory.name}</h2>
+              <p className={`text-sm ${selectedFactory.factory.status === 'contacted' ? 'text-green-400' : 'text-yellow-400'}`}>
+                {selectedFactory.factory.status === 'contacted' ? 'Kontakt aufgenommen' : 'Noch nicht kontaktiert'}
               </p>
+              {selectedFactory.factory.comment && (
+                <p className="text-blue-100">{selectedFactory.factory.comment}</p>
+              )}
+
+              <div>
+                <h3 className="font-semibold">Adresse:</h3>
+                {selectedFactory.addresses && selectedFactory.addresses.length > 0 ? (
+                  selectedFactory.addresses.map((a, i) => (
+                    <p key={i}>{`${a.street_name} ${a.street_no}, ${a.postal_code}`}</p>
+                  ))
+                ) : (
+                  <p className="text-blue-200">Keine Adresse vorhanden.</p>
+                )}
+              </div>
+
+              <div>
+                <h3 className="font-semibold">Kontakt:</h3>
+                {selectedFactory.contacts && selectedFactory.contacts.length > 0 ? (
+                  selectedFactory.contacts.map((c, i) => (
+                    <div key={i} className="mb-2">
+                      <p><strong>{c.employee_name}</strong> – {c.role}</p>
+                      <p>{c.email} | {c.phone_no}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-blue-200">Kein Kontakt eingetragen.</p>
+                )}
+              </div>
+
+              <div>
+                <h3 className="font-semibold">Telefonnummern:</h3>
+                {selectedFactory.telefone && selectedFactory.telefone.length > 0 ? (
+                  selectedFactory.telefone.map((t, i) => (
+                    <p key={i}>{t.phone_no}{t.comment && ` (${t.comment})`}</p>
+                  ))
+                ) : (
+                  <p className="text-blue-200">Keine Telefonnummern vorhanden.</p>
+                )}
+              </div>
+
+              {selectedFactory.websites && selectedFactory.websites.length > 0 && (
+                <div>
+                  <h3 className="font-semibold">Webseiten:</h3>
+                  {selectedFactory.websites.map((w, i) => (
+                    <a
+                      key={i}
+                      href={w.url.startsWith('http') ? w.url : `https://${w.url}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-300 underline block"
+                    >
+                      {w.url}
+                    </a>
+                  ))}
+                </div>
+              )}
             </div>
           ) : (
             <p className="text-blue-300">Wähle eine Fabrik aus, um Details zu sehen.</p>
