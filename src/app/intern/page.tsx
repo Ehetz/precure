@@ -17,6 +17,7 @@ interface Address {
 }
 
 interface Contact {
+  id: number
   employee_name: string
   email: string
   phone_no: string
@@ -40,6 +41,13 @@ export default function InternPage() {
   const [selectedFactory, setSelectedFactory] = useState<FactoryDetails | null>(null)
   const [search, setSearch] = useState('')
   const [commentText, setCommentText] = useState('')
+  const [showAddContact, setShowAddContact] = useState(false)
+  const [newContact, setNewContact] = useState({
+    employee_name: '',
+    email: '',
+    phone_no: '',
+    role: ''
+  })
 
   useEffect(() => {
     fetch('/api/factories')
@@ -90,6 +98,34 @@ export default function InternPage() {
   const saveComment = async (name: string) => {
     const ok = await updateFactory(name, { comment: commentText })
     if (!ok) return
+  }
+
+  const addContact = async () => {
+    if (!selectedFactory) return
+    const res = await fetch(
+      `/api/factories/${encodeURIComponent(selectedFactory.factory.name)}/contacts`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newContact)
+      }
+    )
+    if (!res.ok) return
+    await handleSelect(selectedFactory.factory.name)
+    setNewContact({ employee_name: '', email: '', phone_no: '', role: '' })
+    setShowAddContact(false)
+  }
+
+  const deleteContact = async (id: number) => {
+    const text = prompt("Schreibe 'CONFIRM' zum L\xC3\xB6schen:")
+    if (text !== 'CONFIRM') return
+    const res = await fetch(`/api/contacts/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ confirm: 'CONFIRM' })
+    })
+    if (!res.ok) return
+    if (selectedFactory) await handleSelect(selectedFactory.factory.name)
   }
 
   const filtered = factories.filter(f =>
@@ -183,8 +219,8 @@ export default function InternPage() {
               <div>
                 <h3 className="font-semibold">Kontakt:</h3>
                 {selectedFactory.contacts && selectedFactory.contacts.length > 0 ? (
-                  selectedFactory.contacts.map((c, i) => (
-                    <div key={i} className="mb-2">
+                  selectedFactory.contacts.map(c => (
+                    <div key={c.id} className="mb-2">
                       <p><strong>{c.employee_name}</strong> – {c.role}</p>
                       <p>
                         <a
@@ -194,11 +230,59 @@ export default function InternPage() {
                           {c.email}
                         </a>{' '}
                         | {c.phone_no}
+                        <button
+                          onClick={() => deleteContact(c.id)}
+                          className="ml-2 text-red-400 hover:text-red-600 underline"
+                        >
+                          Löschen
+                        </button>
                       </p>
                     </div>
                   ))
                 ) : (
                   <p className="text-blue-200">Kein Kontakt eingetragen.</p>
+                )}
+                <button
+                  onClick={() => setShowAddContact(v => !v)}
+                  className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                >
+                  Kontakt hinzufügen
+                </button>
+                {showAddContact && (
+                  <div className="mt-2 space-y-2">
+                    <input
+                      className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+                      placeholder="Name"
+                      value={newContact.employee_name}
+                      onChange={e =>
+                        setNewContact({ ...newContact, employee_name: e.target.value })
+                      }
+                    />
+                    <input
+                      className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+                      placeholder="Rolle"
+                      value={newContact.role}
+                      onChange={e => setNewContact({ ...newContact, role: e.target.value })}
+                    />
+                    <input
+                      className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+                      placeholder="E-Mail"
+                      value={newContact.email}
+                      onChange={e => setNewContact({ ...newContact, email: e.target.value })}
+                    />
+                    <input
+                      className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+                      placeholder="Telefon"
+                      value={newContact.phone_no}
+                      onChange={e => setNewContact({ ...newContact, phone_no: e.target.value })}
+                    />
+                    <button
+                      onClick={addContact}
+                      className="bg-[#3d7188] hover:bg-[#2e5f70] text-white px-4 py-2 rounded"
+                    >
+                      Speichern
+                    </button>
+                  </div>
                 )}
               </div>
 
