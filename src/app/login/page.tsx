@@ -20,6 +20,7 @@ export default function LoginPage() {
     if (res.ok) {
       const data = await res.json()
       localStorage.setItem('username', data.user.username)
+      if (data.user.rol) localStorage.setItem('role', data.user.rol)
       window.location.href = '/intern'
     } else {
       const data = await res.json()

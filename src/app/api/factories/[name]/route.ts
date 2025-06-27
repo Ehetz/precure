@@ -18,6 +18,7 @@ export async function GET(
       return NextResponse.json({ error: 'Fabrik nicht gefunden' }, { status: 404 })
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const factory = factoryRows[0] as any
     const factoryId = factory.id
 

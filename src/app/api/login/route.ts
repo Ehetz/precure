@@ -8,6 +8,7 @@ export async function POST(req: Request) {
 
     // Consulta el usuario por nombre de usuario
     const [rows] = await db.query('SELECT * FROM users WHERE username = ?', [username])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const user = (Array.isArray(rows) && rows.length > 0) ? (rows[0] as any) : null
 
     if (!user) {

@@ -17,6 +17,7 @@ interface Address {
 }
 
 interface Contact {
+  id?: number
   employee_name: string
   email: string
   phone_no: string
@@ -38,12 +39,17 @@ interface FactoryDetails {
 export default function InternPage() {
   const [factories, setFactories] = useState<Factory[]>([])
   const [selectedFactory, setSelectedFactory] = useState<FactoryDetails | null>(null)
+  const [role, setRole] = useState<string>('')
   const [search, setSearch] = useState('')
 
   useEffect(() => {
     fetch('/api/factories')
       .then(res => res.json())
       .then(data => setFactories(data))
+  }, [])
+
+  useEffect(() => {
+    setRole(localStorage.getItem('role') || '')
   }, [])
 
   const handleSelect = async (name: string) => {
@@ -59,6 +65,35 @@ export default function InternPage() {
   const filtered = factories.filter(f =>
     f.name.toLowerCase().includes(search.toLowerCase())
   )
+
+  const toggleStatus = async () => {
+    if (!selectedFactory) return
+    const newStatus = selectedFactory.factory.status === 'contacted' ? 'pending' : 'contacted'
+    await fetch(`/api/factories/${selectedFactory.factory.id}/status`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: newStatus })
+    })
+    setSelectedFactory({
+      ...selectedFactory,
+      factory: { ...selectedFactory.factory, status: newStatus }
+    })
+    setFactories(prev => prev.map(f =>
+      f.id === selectedFactory.factory.id ? { ...f, status: newStatus } : f
+    ))
+  }
+
+  const deleteContact = async (id: number) => {
+    await fetch(`/api/admin/contacts/${id}`, {
+      method: 'DELETE',
+      headers: { 'X-Username': localStorage.getItem('username') || '' }
+    })
+    if (!selectedFactory) return
+    setSelectedFactory({
+      ...selectedFactory,
+      contacts: selectedFactory.contacts?.filter(c => c.id !== id)
+    })
+  }
 
   return (
     <div className="min-h-screen bg-[#0a0f1a] text-white p-6">
@@ -98,6 +133,14 @@ export default function InternPage() {
               <p className={`text-sm ${selectedFactory.factory.status === 'contacted' ? 'text-green-400' : 'text-yellow-400'}`}>
                 {selectedFactory.factory.status === 'contacted' ? 'Kontakt aufgenommen' : 'Noch nicht kontaktiert'}
               </p>
+              {role && (
+                <button
+                  onClick={toggleStatus}
+                  className="text-xs text-blue-300 underline"
+                >
+                  Status ändern
+                </button>
+              )}
               {selectedFactory.factory.comment && (
                 <p className="text-blue-100">{selectedFactory.factory.comment}</p>
               )}
@@ -120,6 +163,14 @@ export default function InternPage() {
                     <div key={i} className="mb-2">
                       <p><strong>{c.employee_name}</strong> – {c.role}</p>
                       <p>{c.email} | {c.phone_no}</p>
+                      {role === 'admin' && c.id && (
+                        <button
+                          onClick={() => deleteContact(c.id!)}
+                          className="text-xs text-red-400 underline"
+                        >
+                          Löschen
+                        </button>
+                      )}
                     </div>
                   ))
                 ) : (
