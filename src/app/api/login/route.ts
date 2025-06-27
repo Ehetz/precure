@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
     // Consulta el usuario por nombre de usuario
     const [rows] = await db.query('SELECT * FROM users WHERE username = ?', [username])
-    const user = (Array.isArray(rows) && rows.length > 0) ? (rows[0] as any) : null
+    const user = (Array.isArray(rows) && rows.length > 0) ? (rows[0] as { id: number; username: string; password_hash: string; nombre?: string | null; rol?: string | null }) : null
 
     if (!user) {
       return NextResponse.json({ message: 'Benutzer nicht gefunden' }, { status: 401 })

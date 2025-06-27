@@ -3,10 +3,10 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(
   req: NextRequest,
- context: { params: { name: string } }
+ context: { params: Promise<{ name: string }> }
 ) {
   try {
-    const { name } = context.params
+    const { name } = await context.params
     const decodedName = decodeURIComponent(name)
 
     const [factoryRows] = await db.query(
@@ -18,7 +18,7 @@ export async function GET(
       return NextResponse.json({ error: 'Fabrik nicht gefunden' }, { status: 404 })
     }
 
-    const factory = factoryRows[0] as any
+    const factory = factoryRows[0] as { id: number; [key: string]: unknown }
     const factoryId = factory.id
 
     const [addresses] = await db.query('SELECT * FROM addresses WHERE factory_id = ?', [factoryId])
