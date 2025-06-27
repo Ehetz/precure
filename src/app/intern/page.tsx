@@ -186,7 +186,15 @@ export default function InternPage() {
                   selectedFactory.contacts.map((c, i) => (
                     <div key={i} className="mb-2">
                       <p><strong>{c.employee_name}</strong> – {c.role}</p>
-                      <p>{c.email} | {c.phone_no}</p>
+                      <p>
+                        <a
+                          href={`mailto:${c.email}`}
+                          className="text-blue-300 underline"
+                        >
+                          {c.email}
+                        </a>{' '}
+                        | {c.phone_no}
+                      </p>
                     </div>
                   ))
                 ) : (
