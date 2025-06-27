@@ -48,6 +48,20 @@ export default function InternPage() {
     phone_no: '',
     role: ''
   })
+  const [showAddFactory, setShowAddFactory] = useState(false)
+  const [newFactory, setNewFactory] = useState({
+    name: '',
+    street_name: '',
+    street_no: '',
+    postal_code: '',
+    contact_name: '',
+    contact_role: '',
+    contact_email: '',
+    contact_phone: '',
+    website: '',
+    phone: '',
+    phone_comment: ''
+  })
 
   useEffect(() => {
     fetch('/api/factories')
@@ -100,6 +114,70 @@ export default function InternPage() {
     if (!ok) return
   }
 
+  const addFactory = async () => {
+    const payload: Record<string, unknown> = {
+      name: newFactory.name,
+      address: {
+        street_name: newFactory.street_name,
+        street_no: Number(newFactory.street_no),
+        postal_code: Number(newFactory.postal_code)
+      }
+    }
+
+    const contactValid =
+      newFactory.contact_name &&
+      newFactory.contact_email &&
+      newFactory.contact_phone &&
+      newFactory.contact_role
+    if (contactValid) {
+      payload.contacts = [
+        {
+          employee_name: newFactory.contact_name,
+          email: newFactory.contact_email,
+          phone_no: newFactory.contact_phone,
+          role: newFactory.contact_role
+        }
+      ]
+    }
+
+    if (newFactory.website) {
+      payload.websites = [{ url: newFactory.website }]
+    }
+
+    if (newFactory.phone) {
+      payload.telefone = [
+        { phone_no: newFactory.phone, comment: newFactory.phone_comment }
+      ]
+    }
+
+    const res = await fetch('/api/factories', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+
+    if (!res.ok) return
+
+    setShowAddFactory(false)
+    setNewFactory({
+      name: '',
+      street_name: '',
+      street_no: '',
+      postal_code: '',
+      contact_name: '',
+      contact_role: '',
+      contact_email: '',
+      contact_phone: '',
+      website: '',
+      phone: '',
+      phone_comment: ''
+    })
+
+    const factoriesRes = await fetch('/api/factories')
+    const factoriesData = await factoriesRes.json()
+    setFactories(factoriesData)
+  }
+
   const addContact = async () => {
     if (!selectedFactory) return
     const res = await fetch(
@@ -143,6 +221,88 @@ export default function InternPage() {
         value={search}
         onChange={e => setSearch(e.target.value)}
       />
+      <button
+        onClick={() => setShowAddFactory(v => !v)}
+        className="mb-6 ml-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+      >
+        Neue Fabrik
+      </button>
+      {showAddFactory && (
+        <div className="mb-6 space-y-2 max-w-md">
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Name"
+            value={newFactory.name}
+            onChange={e => setNewFactory({ ...newFactory, name: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Straße"
+            value={newFactory.street_name}
+            onChange={e => setNewFactory({ ...newFactory, street_name: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Hausnummer"
+            value={newFactory.street_no}
+            onChange={e => setNewFactory({ ...newFactory, street_no: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="PLZ"
+            value={newFactory.postal_code}
+            onChange={e => setNewFactory({ ...newFactory, postal_code: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Kontakt Name"
+            value={newFactory.contact_name}
+            onChange={e => setNewFactory({ ...newFactory, contact_name: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Kontakt Rolle"
+            value={newFactory.contact_role}
+            onChange={e => setNewFactory({ ...newFactory, contact_role: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Kontakt E-Mail"
+            value={newFactory.contact_email}
+            onChange={e => setNewFactory({ ...newFactory, contact_email: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Kontakt Telefon"
+            value={newFactory.contact_phone}
+            onChange={e => setNewFactory({ ...newFactory, contact_phone: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Webseite"
+            value={newFactory.website}
+            onChange={e => setNewFactory({ ...newFactory, website: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Telefon"
+            value={newFactory.phone}
+            onChange={e => setNewFactory({ ...newFactory, phone: e.target.value })}
+          />
+          <input
+            className="w-full p-2 rounded bg-gray-800 border border-gray-600"
+            placeholder="Telefon Kommentar"
+            value={newFactory.phone_comment}
+            onChange={e => setNewFactory({ ...newFactory, phone_comment: e.target.value })}
+          />
+          <button
+            onClick={addFactory}
+            className="bg-[#3d7188] hover:bg-[#2e5f70] text-white px-4 py-2 rounded"
+          >
+            Speichern
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
