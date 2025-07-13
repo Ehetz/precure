@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function SectionHighlight() {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-[#f4f6fb] text-[#223155] rounded-2xl shadow-lg">
+    <section className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-black rounded-2xl shadow-lg">
       {/* Imagen */}
       <div>
         <Image
@@ -16,8 +16,8 @@ export default function SectionHighlight() {
 
       {/* Texto */}
       <div>
-        <h3 className="text-2xl font-bold mb-4 text-emerald-700">Klimaneutralität – was bedeutet das für precure?</h3>
-        <p className="mb-6 text-base leading-relaxed text-[#223155]">
+        <h3 className="text-2xl font-bold mb-4 text-black">Klimaneutralität – was bedeutet das für precure?</h3>
+        <p className="mb-6 text-base leading-relaxed">
           Klimaneutralität bedeutet, dass unsere industriellen Prozesse auf Umweltfreundlichkeit und Ausgleich der CO₂-Emissionen optimiert sind – durch effiziente Technik und nachhaltige Partnerprojekte.
         </p>
         <a

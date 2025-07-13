@@ -8,7 +8,7 @@ import 'swiper/css/navigation'
 
 export default function HeroSlider() {
   return (
-    <div className="w-full bg-white">
+    <div className="w-full">
       <Swiper
         spaceBetween={30}
         centeredSlides
@@ -21,21 +21,21 @@ export default function HeroSlider() {
         className="w-full h-[400px] md:h-[500px]"
       >
         <SwiperSlide>
-          <div className="w-full h-full bg-gradient-to-r from-blue-100 via-white to-blue-100 flex flex-col justify-center items-center text-center text-blue-900 px-4">
+          <div className="w-full h-full flex flex-col justify-center items-center text-center text-black px-4">
             <h2 className="text-3xl md:text-5xl font-extrabold drop-shadow">Entdecke unsere Produkte</h2>
             <p className="mt-4 text-lg md:text-xl max-w-2xl">Moderne Schwingungssensoren für maximale Effizienz in der Industrie.</p>
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className="w-full h-full bg-gradient-to-r from-blue-100 via-white to-blue-100 flex flex-col justify-center items-center text-center text-blue-900 px-4">
+          <div className="w-full h-full flex flex-col justify-center items-center text-center text-black px-4">
             <h2 className="text-3xl md:text-5xl font-extrabold drop-shadow">Unsere Dienstleistungen</h2>
             <p className="mt-4 text-lg md:text-xl max-w-2xl">Wartung, Monitoring und individuelle Beratung auf höchstem Niveau.</p>
           </div>
         </SwiperSlide>
 
         <SwiperSlide>
-          <div className="w-full h-full bg-gradient-to-r from-blue-100 via-white to-blue-100 flex flex-col justify-center items-center text-center text-blue-900 px-4">
+          <div className="w-full h-full flex flex-col justify-center items-center text-center text-black px-4">
             <h2 className="text-3xl md:text-5xl font-extrabold drop-shadow">Kontaktiere uns</h2>
             <p className="mt-4 text-lg md:text-xl max-w-2xl">Wir helfen dir, die richtige Lösung für dein Unternehmen zu finden.</p>
           </div>

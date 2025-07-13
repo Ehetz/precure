@@ -33,7 +33,7 @@ const steps = [
 
 export default function ZukunftsSichereDigitalisierungSection() {
   return (
-    <section className="bg-[#0a0f1a] py-20 px-4">
+    <section className="py-20 px-4 text-black">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative">
         {/* Imagen y texto a la izquierda */}
         <div className="relative flex flex-col h-full">
@@ -46,9 +46,9 @@ export default function ZukunftsSichereDigitalisierungSection() {
               priority
             />
           </div>
-          <div className="relative z-10 p-8 md:p-12 bg-black/60 rounded-2xl backdrop-blur text-white h-full flex flex-col justify-center">
+          <div className="relative z-10 p-8 md:p-12 bg-white rounded-2xl text-black h-full flex flex-col justify-center">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Zukunftssichere Digitalisierung:<br />Ihre nächsten Schritte</h2>
-            <p className="text-lg text-blue-100 max-w-xl">
+            <p className="text-lg max-w-xl">
               Machen Sie Ihr Unternehmen bereit für die Zukunft: <br />
               Schritt für Schritt zur erfolgreichen digitalen Transformation und nachhaltigen Wertschöpfung.
             </p>
@@ -62,14 +62,14 @@ export default function ZukunftsSichereDigitalisierungSection() {
             return (
               <div
                 key={step.title}
-                className="bg-[#161c26] rounded-xl shadow-xl px-7 py-7 flex gap-5 items-start border border-white/5 hover:border-blue-700 transition"
+                className="bg-white rounded-xl shadow-xl px-7 py-7 flex gap-5 items-start border border-gray-200 hover:border-gray-300 transition"
               >
                 <div className="mt-1">
-                  <Icon size={32} className="text-blue-400" />
+                  <Icon size={32} className="text-gray-600" />
                 </div>
                 <div>
-                  <h3 className="text-lg md:text-xl font-bold mb-1 text-blue-200">{step.title}</h3>
-                  <p className="text-blue-100 text-sm">{step.text}</p>
+                  <h3 className="text-lg md:text-xl font-bold mb-1">{step.title}</h3>
+                  <p className="text-sm">{step.text}</p>
                 </div>
               </div>
             )

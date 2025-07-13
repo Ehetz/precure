@@ -7,7 +7,7 @@ import ServiceCards from '@/components/ServiceCards'
 
 export default function HomePage() {
   return (
-    <main className="bg-[#14254a] text-white">
+    <main className="">
       <HeroSlider />
       <div className="mt-12" />
       <SectionHighlight />

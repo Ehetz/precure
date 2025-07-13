@@ -4,7 +4,7 @@ import AnwendungenCards from '@/components/anwendungencards'
 
 export default function AnwendungenPage() {
   return (
-    <main className="bg-[#0a0f1a] min-h-screen pb-16">
+    <main className="min-h-screen pb-16">
       {/* Banner */}
       <section className="relative w-full py-16 px-4 flex items-center justify-center">
         {/* Imagen de fondo opcional */}
@@ -12,10 +12,10 @@ export default function AnwendungenPage() {
           <img src="/images/anwendungen-banner.jpg" alt="" className="w-full h-full object-cover" />
         </div> */}
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white drop-shadow mb-4">
+          <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
             Anwendungen
           </h1>
-          <p className="text-lg md:text-xl text-blue-200 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
             Entdecken Sie, in welchen Branchen und Einsatzbereichen unsere Lösungen den Unterschied machen. Klicken Sie auf eine Karte, um mehr zu erfahren!
           </p>
         </div>

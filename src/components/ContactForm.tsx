@@ -29,10 +29,10 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="bg-[#e6f0fa] py-12 px-4">
+    <section className="py-12 px-4">
       <div className="max-w-4xl mx-auto bg-white shadow-md p-8 rounded border border-blue-100">
-        <h2 className="text-3xl font-bold text-blue-900 mb-6">Kontaktieren Sie uns</h2>
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 text-blue-900">
+        <h2 className="text-3xl font-bold text-black mb-6">Kontaktieren Sie uns</h2>
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black">
           <div>
             <label htmlFor="vorname" className="block text-sm font-semibold mb-1">Vorname</label>
             <input

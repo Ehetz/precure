@@ -27,14 +27,14 @@ const steps = [
 
 export default function PredictiveMaintenance() {
   return (
-    <section className="relative bg-[#101524] py-20 px-4 overflow-hidden">
+    <section className="relative py-20 px-4 overflow-hidden text-black">
       {/* Imagen de fondo tech opcional */}
       {/* <div className="absolute inset-0 z-0 pointer-events-none opacity-30">
         <img src="/images/tech-bg.png" className="object-cover w-full h-full" alt="" />
       </div> */}
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-blue-100 mb-12 text-center">
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
           Predictive Maintenance als Schlüsseltechnologie
         </h2>
 
@@ -46,16 +46,16 @@ export default function PredictiveMaintenance() {
               <div
                 key={step.title}
                 className="
-                  bg-[#161c26] border border-blue-900/30 rounded-2xl shadow-lg px-7 py-8
+                  bg-white border border-gray-200 rounded-2xl shadow-lg px-7 py-8
                   flex flex-col items-center text-center w-full md:max-w-xs
-                  hover:border-blue-700 transition
+                  hover:border-gray-300 transition
                 "
               >
                 <div className="mb-3">
                   <Icon size={40} className="text-blue-400 drop-shadow" />
                 </div>
-                <h3 className="text-lg font-bold text-blue-200 mb-2">{step.title}</h3>
-                <p className="text-blue-100 text-sm">{step.text}</p>
+                <h3 className="text-lg font-bold mb-2">{step.title}</h3>
+                <p className="text-sm">{step.text}</p>
               </div>
             )
           })}
@@ -64,16 +64,15 @@ export default function PredictiveMaintenance() {
         {/* Resultado final destacado */}
         <div
           className="
-            mx-auto mt-14 max-w-2xl rounded-2xl border border-blue-700 bg-gradient-to-br
-            from-[#123661]/80 via-[#0a2540]/90 to-[#161c26]/90 shadow-2xl p-8 text-center
+            mx-auto mt-14 max-w-2xl rounded-2xl border border-gray-300 bg-white shadow-2xl p-8 text-center
             flex flex-col items-center gap-4
           "
         >
           <Award size={42} className="text-amber-400 mb-2" />
-          <span className="text-xl md:text-2xl font-bold text-white mb-1">
+          <span className="text-xl md:text-2xl font-bold mb-1">
             Das Resultat:
           </span>
-          <span className="text-blue-100 text-lg">
+          <span className="text-lg">
             bessere Planbarkeit, weniger Notfalleinsätze und ein längeres Maschinenleben.
           </span>
         </div>

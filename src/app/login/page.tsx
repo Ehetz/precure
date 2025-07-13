@@ -28,15 +28,15 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0a0f1a]">
+    <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
       <form
         onSubmit={handleSubmit}
-        className="bg-[#161c26] p-8 rounded-xl shadow-lg w-full max-w-md border border-blue-900/20"
+        className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md border border-gray-200"
       >
-        <h2 className="text-2xl font-bold text-center mb-6 text-white">Login für Mitarbeiter</h2>
+        <h2 className="text-2xl font-bold text-center mb-6 text-black">Login für Mitarbeiter</h2>
 
         <input
-          className="w-full mb-4 px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
+          className="w-full mb-4 px-4 py-2 rounded bg-gray-100 text-black border border-gray-300"
           type="text"
           placeholder="Username"
           value={username}
@@ -45,7 +45,7 @@ export default function LoginPage() {
         />
 
         <input
-          className="w-full mb-6 px-4 py-2 rounded bg-gray-900 text-white border border-gray-700"
+          className="w-full mb-6 px-4 py-2 rounded bg-gray-100 text-black border border-gray-300"
           type="password"
           placeholder="Passwort"
           value={password}

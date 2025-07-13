@@ -68,10 +68,10 @@ export default function AnwendungenCards() {
               className="object-cover transition-transform duration-300 group-hover:scale-105"
               priority={i < 3}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f1a]/90 via-[#0a0f1a]/40 to-transparent group-hover:bg-[#00132a]/60 transition-all duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/40 to-transparent group-hover:bg-white/60 transition-all duration-300" />
             <div className="absolute left-0 bottom-0 p-5 flex flex-col gap-2 z-10">
-              <Icon size={38} className="text-white mb-1 drop-shadow" />
-              <span className="text-white font-bold text-lg sm:text-xl leading-snug drop-shadow">
+              <Icon size={38} className="text-black mb-1" />
+              <span className="text-black font-bold text-lg sm:text-xl leading-snug">
                 {title}
               </span>
             </div>
