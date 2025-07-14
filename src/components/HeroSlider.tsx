@@ -63,7 +63,6 @@ export default function HeroSlider() {
         {/* Slide 2 */}
         <SwiperSlide>
           <div className="w-full h-full flex items-center justify-center relative px-4 text-center text-black">
-            <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 rounded-t-3xl" />
             <div className="relative max-w-2xl mx-auto">
               <p className="text-sm uppercase tracking-wide text-gray-600 mb-1">Digital Fusion</p>
               <h2 className="text-3xl md:text-5xl font-extrabold mb-4">
@@ -105,7 +104,7 @@ export default function HeroSlider() {
                 priority
               />
             </div>
-            <div className="flex-1 text-center md:text-left">
+            <div className="flex-1 text-center md:text-left md:ml-8">
               <p className="text-sm uppercase tracking-wide text-gray-600 mb-1">Laser-Ausrichtung</p>
               <h2 className="text-3xl md:text-5xl font-extrabold mb-4">Laser-Ausrichtsysteme</h2>
               <p className="mb-6 text-base md:text-lg max-w-xl">
