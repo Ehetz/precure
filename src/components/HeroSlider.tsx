@@ -43,7 +43,7 @@ export default function HeroSlider() {
                 priority
               />
             </div>
-            <div className="flex-1 text-center md:text-left">
+            <div className="flex-1 text-center md:text-left md:ml-8">
               <p className="text-sm uppercase tracking-wide text-gray-600 mb-1">Zustandsüberwachung</p>
               <h2 className="text-3xl md:text-5xl font-extrabold mb-4">Vibrationssensoren</h2>
               <p className="mb-6 text-base md:text-lg max-w-xl">
