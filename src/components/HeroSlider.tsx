@@ -10,7 +10,7 @@ import 'swiper/css/navigation'
 
 export default function HeroSlider() {
   return (
-    <div className="w-full">
+    <div className="w-full bg-white">
       <Swiper
         spaceBetween={30}
         centeredSlides

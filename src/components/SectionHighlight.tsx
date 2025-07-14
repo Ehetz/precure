@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 export default function SectionHighlight() {
   return (
-    <section className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-black rounded-2xl shadow-lg">
+    <section className="max-w-6xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-8 items-center text-black rounded-2xl shadow-lg bg-white">
       {/* Imagen */}
       <div>
         <Image
