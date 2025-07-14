@@ -6,23 +6,27 @@ import { Server, Activity, LayoutGrid, Users } from 'lucide-react'
 const features = [
   {
     icon: Server,
-    title: 'Echtzeit-Überwachung',
-    text: 'Unsere Plattform bietet sofortige Zustandsanalyse von Maschinen für bessere Entscheidungen.',
+    title: 'Spitzentechnologie',
+    text:
+      'Wir stellen unseren Kunden modernste Technologien zur Verfügung, mit Fokus auf Prozesseffizienz.',
   },
   {
     icon: Activity,
-    title: 'Intelligente Datenauswertung',
-    text: 'Nutzen Sie erweiterte Analysen zur Optimierung von Wartung und Betrieb.',
+    title: 'Fachkundige Ingenieure',
+    text:
+      'Unsere Fachleute sind auf alle Bereiche unserer Dienstleistungen spezialisiert und garantieren eine persönliche Betreuung.',
   },
   {
     icon: LayoutGrid,
-    title: 'Flexible Anwendung',
-    text: 'Unsere Lösung passt sich vielseitig an unterschiedliche industrielle Umgebungen an.',
+    title: 'Kundensupport',
+    text:
+      'Wir sind über soziale Netzwerke, Chat, E-Mail und Telefon stets erreichbar und betreuen jeden einzelnen Kunden.',
   },
   {
     icon: Users,
-    title: 'Kundensupport inklusive',
-    text: 'Wir begleiten Sie mit technischem Support, um die Technologie optimal zu nutzen.',
+    title: 'Pünktliche Lieferung',
+    text:
+      'Die termingerechte Lieferung unserer Produkte und Dienstleistungen ist für uns essenziell – für Vertrauen und Zufriedenheit.',
   },
 ]
 
@@ -32,10 +36,9 @@ export default function MonitoringFeatures() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
         {/* Texto izquierda */}
         <div className="flex flex-col justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Zustandsüberwachung für Industrieanlagen</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Wir sind der führende Anbieter von Technologie in Chile</h2>
           <p className="text-lg">
-            Mit unseren kabellosen Sensortechnologien ermöglichen wir eine vorausschauende Wartung,
-            reduzieren Ausfallzeiten und erhöhen die Effizienz Ihrer Produktionsprozesse.
+            Wir zeichnen uns durch unsere Innovationskraft in der Instandhaltung aus. Gemeinsam mit unseren Kunden entwickeln wir klare Lösungen, um Wettbewerbsvorteile in Produktionsprozessen zu schaffen.
           </p>
         </div>
 
