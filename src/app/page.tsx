@@ -5,6 +5,7 @@ import SectionHighlight from '@/components/SectionHighlight'
 import MonitoringFeatures from '@/components/MonitoringFeatures'
 import ServiceCards from '@/components/ServiceCards'
 import LogoSlider from '@/components/LogoSlider'
+import BlogGallery from '@/components/BlogGallery'
 
 export default function HomePage() {
   return (
@@ -15,6 +16,7 @@ export default function HomePage() {
       <ServiceCards />
       <MonitoringFeatures />
       <LogoSlider />
+      <BlogGallery />
     </main>
   )
 }
